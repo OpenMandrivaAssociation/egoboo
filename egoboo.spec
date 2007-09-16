@@ -1,6 +1,6 @@
 %define name	egoboo
 %define version	2.22
-%define	rel	8
+%define	rel	9
 %define release %mkrel %{rel}
 %define Summary 3D dungeon crawling game
 
@@ -8,7 +8,7 @@ Name:		%{name}
 Version:	%{version}
 Release:	%{release}
 Source0:	%{name}_%{version}.orig.tar.gz
-Patch0:		egoboo_2.22-28.diff.gz
+Patch0:		egoboo_2.22-28.diff
 License:	GPL
 Group:		Games/Adventure
 URL:		http://egoboo.sourceforge.net/
@@ -37,21 +37,9 @@ rm -rf %{buildroot}
 install -d %{buildroot}{%{_gamesbindir},%{_sysconfdir}/egoboo}
 %{makeinstall_std}
 
-install -d %{buildroot}%{_menudir}
-cat <<EOF > %{buildroot}%{_menudir}/%{name}
-?package(%{name}):command="%{_gamesbindir}/%{name}" \
-		icon=%{name}.png \
-		needs="x11" \
-		section="More Applications/Games/Adventure" \
-		title="Egoboo"\
-		longtitle="%{Summary}" \
-		xdg="true"
-EOF
-
 install -m644 debian/egoboo.desktop -D %{buildroot}%{_datadir}/applications/egoboo.desktop
 desktop-file-install	--vendor="" \
 			--remove-category="Application" \
-			--add-category="X-MandrivaLinux-MoreApplications-Games-Adventure" \
 			--dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
 
 install -d %{buildroot}{%{_miconsdir},%{_iconsdir},%{_liconsdir}}
@@ -74,8 +62,8 @@ rm -rf %{buildroot}
 %{_gamesbindir}/%{name}
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/*
-%{_menudir}/%{name}
 %{_datadir}/applications/egoboo.desktop
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png
+
