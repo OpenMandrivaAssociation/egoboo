@@ -15,6 +15,7 @@ URL:		http://egoboo.sourceforge.net/
 Summary:	%{Summary}
 BuildRequires:	SDL-devel mesaglu-devel dos2unix desktop-file-utils ImageMagick
 Requires:	egoboo-data >= 2.220
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Egoboo is an open source project, using OpenGL and SDL(Simple
