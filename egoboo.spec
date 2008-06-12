@@ -47,11 +47,15 @@ convert -resize 16x16 debian/egoboo.xpm %{buildroot}%{_miconsdir}/%{name}.png
 convert -resize 32x32 debian/egoboo.xpm %{buildroot}%{_iconsdir}/%{name}.png
 convert -resize 48x48 debian/egoboo.xpm %{buildroot}%{_liconsdir}/%{name}.png
 
+%if %mdkversion < 200900
 %post
 %{update_menus}
+%endif
 
+%if %mdkversion < 200900
 %postun
 %{clean_menus}
+%endif
 
 %clean
 rm -rf %{buildroot}
