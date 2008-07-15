@@ -1,20 +1,20 @@
 %define name	egoboo
-%define version	2.22
-%define	rel	9
+%define version	2.6.3b
+%define	rel	1
 %define release %mkrel %{rel}
 %define Summary 3D dungeon crawling game
 
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
-Source0:	%{name}_%{version}.orig.tar.gz
+Source0:	%name-source-%version.tar.gz
 Patch0:		egoboo_2.22-28.diff
 License:	GPL
 Group:		Games/Adventure
 URL:		http://egoboo.sourceforge.net/
 Summary:	%{Summary}
-BuildRequires:	SDL-devel mesaglu-devel dos2unix desktop-file-utils ImageMagick
-Requires:	egoboo-data >= 2.220
+BuildRequires:	SDL-devel mesaglu-devel desktop-file-utils ImageMagick
+Requires:	egoboo-data 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -25,9 +25,7 @@ detailed models(using Quake2 modeling tools) make this game
 stand out in the gaming open-source community.
 
 %prep
-%setup -q -n %{name}
-%patch0 -p1 -b .debian
-dos2unix egoboo.txt change.log
+%setup -q -n source
 
 %build
 %make DESTDIR=%{_prefix} BIN_PATH=%{_gamesbindir} SHARE_PATH=%{_gamesdatadir} FLAGS="-D_LINUX $RPM_OPT_FLAGS" LIBDIR="-L%{_libdir}"
