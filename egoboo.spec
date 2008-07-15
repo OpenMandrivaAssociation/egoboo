@@ -7,13 +7,15 @@
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
+Epoch:		1
 Source0:	%name-source-%version.tar.gz
-Patch0:		egoboo_2.22-28.diff
+Patch1:		egoboo-2.6.3b-fix-startup-script.patch
 License:	GPL
 Group:		Games/Adventure
 URL:		http://egoboo.sourceforge.net/
 Summary:	%{Summary}
-BuildRequires:	SDL-devel mesaglu-devel desktop-file-utils ImageMagick
+BuildRequires:	SDL-devel SDL_mixer-devel SDL_ttf-devel
+BuildRequires:	mesaglu-devel ImageMagick
 Requires:	egoboo-data 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -26,24 +28,39 @@ stand out in the gaming open-source community.
 
 %prep
 %setup -q -n source
+%patch1 -p0 -b .script
 
 %build
-%make DESTDIR=%{_prefix} BIN_PATH=%{_gamesbindir} SHARE_PATH=%{_gamesdatadir} FLAGS="-D_LINUX $RPM_OPT_FLAGS" LIBDIR="-L%{_libdir}"
+cd game
+make -f Makefile.unix OPT="%{optflags}"
+cd -
+convert res/egoboo.ico %name.png
 
 %install
 rm -rf %{buildroot}
-install -d %{buildroot}{%{_gamesbindir},%{_sysconfdir}/egoboo}
-%{makeinstall_std}
+install -d %{buildroot}%{_gamesbindir}
+cd game
+install -m 755 -D %name %buildroot%{_gamesbindir}/%name.real
+install -m 755 -D %name.sh %buildroot%{_gamesbindir}/%name
+cd -
 
-install -m644 debian/egoboo.desktop -D %{buildroot}%{_datadir}/applications/egoboo.desktop
-desktop-file-install	--vendor="" \
-			--remove-category="Application" \
-			--dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
+mkdir -p %{buildroot}%{_datadir}/applications
+cat > %{buildroot}%{_datadir}/applications/%name.desktop <<EOF
+[Desktop Entry]
+Name=Egoboo
+Comment=A top down graphical (3D) RPG in the spirit of Nethack
+Exec=%{_gamesbindir}/egoboo
+Icon=egoboo
+Terminal=false
+StartupNotify=false
+Type=Application
+Categories=Game;RolePlaying;
+EOF
 
 install -d %{buildroot}{%{_miconsdir},%{_iconsdir},%{_liconsdir}}
-convert -resize 16x16 debian/egoboo.xpm %{buildroot}%{_miconsdir}/%{name}.png
-convert -resize 32x32 debian/egoboo.xpm %{buildroot}%{_iconsdir}/%{name}.png
-convert -resize 48x48 debian/egoboo.xpm %{buildroot}%{_liconsdir}/%{name}.png
+convert -resize 16x16 %name-0.png %{buildroot}%{_miconsdir}/%{name}.png
+convert -resize 32x32 %name-0.png %{buildroot}%{_iconsdir}/%{name}.png
+convert -resize 48x48 %name-0.png %{buildroot}%{_liconsdir}/%{name}.png
 
 %if %mdkversion < 200900
 %post
@@ -60,12 +77,9 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc %{name}.txt change.log
-%{_gamesbindir}/%{name}
-%dir %{_sysconfdir}/%{name}
-%config(noreplace) %{_sysconfdir}/%{name}/*
+%doc README.Linux game/change.log
+%{_gamesbindir}/%{name}*
 %{_datadir}/applications/egoboo.desktop
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png
-
