@@ -1,5 +1,5 @@
 %define name	egoboo
-%define version	2.6.3b
+%define version	2.6.4
 %define	rel	1
 %define release %mkrel %{rel}
 %define Summary 3D dungeon crawling game
@@ -27,7 +27,7 @@ detailed models(using Quake2 modeling tools) make this game
 stand out in the gaming open-source community.
 
 %prep
-%setup -q -n source
+%setup -q -n %name-source-%version
 %patch1 -p0 -b .script
 
 %build
