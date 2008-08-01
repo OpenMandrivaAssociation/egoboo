@@ -10,7 +10,7 @@ Release:	%{release}
 Epoch:		1
 Source0:	%name-source-%version.tar.gz
 Patch1:		egoboo-2.6.3b-fix-startup-script.patch
-License:	GPL
+License:	GPLv3+
 Group:		Games/Adventure
 URL:		http://egoboo.sourceforge.net/
 Summary:	%{Summary}
