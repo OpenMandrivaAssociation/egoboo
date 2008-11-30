@@ -11,9 +11,10 @@ Patch1:		egoboo-2.6.3b-fix-startup-script.patch
 BuildRequires:	SDL-devel
 BuildRequires:	SDL_mixer-devel
 BuildRequires:	SDL_ttf-devel
+BuildRequires:	SDL_image-devel
 BuildRequires:	mesaglu-devel
 BuildRequires:	imagemagick
-Requires:	egoboo-data = %{version}
+Requires:	egoboo-data = %{epoch}:%{version}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
