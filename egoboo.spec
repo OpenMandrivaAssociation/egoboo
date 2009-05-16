@@ -1,13 +1,14 @@
 Summary:	3D dungeon crawling game
 Name:		egoboo
 Version:	2.7.7
-Release:	%mkrel 1
+Release:	%mkrel 2
 Epoch:		1
 License:	GPLv3+
 Group:		Games/Adventure
 URL:		http://egoboo.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/egoboo/%{name}-source-%{version}.tar.bz2
 Patch1:		egoboo-2.6.3b-fix-startup-script.patch
+Patch2:		egoboo-2.7.7-fix-str-fmt.patch
 BuildRequires:	SDL-devel
 BuildRequires:	SDL_mixer-devel
 BuildRequires:	SDL_ttf-devel
@@ -27,6 +28,7 @@ stand out in the gaming open-source community.
 %prep
 %setup -q -n %{name}-source-%{version}
 %patch1 -p0 -b .script
+%patch2 -p1 -b .str-fmt
 
 %build
 pushd game
@@ -53,7 +55,7 @@ Icon=egoboo
 Terminal=false
 StartupNotify=false
 Type=Application
-Categories=Game;RolePlaying;
+Categories=Game;RolePlaying;AdventureGame;
 EOF
 
 mkdir -p %{buildroot}/%{_iconsdir}/hicolor/{16x16,32x32,48x48}/apps
