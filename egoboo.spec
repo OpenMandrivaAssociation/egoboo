@@ -1,12 +1,13 @@
+%define oname	Egoboo
 Summary:	3D dungeon crawling game
 Name:		egoboo
-Version:	2.7.7
-Release:	%mkrel 2
+Version:	2.8.0
+Release:	%mkrel 1
 Epoch:		1
 License:	GPLv3+
 Group:		Games/Adventure
 URL:		http://egoboo.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/egoboo/%{name}-source-%{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/egoboo/%{oname} %{version}.tar.bz2
 Patch1:		egoboo-2.6.3b-fix-startup-script.patch
 Patch2:		egoboo-2.7.7-fix-str-fmt.patch
 BuildRequires:	SDL-devel
@@ -26,16 +27,14 @@ detailed models(using Quake2 modeling tools) make this game
 stand out in the gaming open-source community.
 
 %prep
-%setup -q -n %{name}-source-%{version}
-%patch1 -p0 -b .script
-%patch2 -p1 -b .str-fmt
+%setup -q -n %{oname}\ %{version}
+# %patch1 -p0 -b .script
+# %patch2 -p1 -b .str-fmt
 
 %build
-pushd game
-make -f Makefile.unix OPT="%{optflags}"
-popd
+make all 
 
-convert res/egoboo.ico %{name}.png
+# convert res/egoboo.ico %{name}.png
 
 %install
 rm -rf %{buildroot}
