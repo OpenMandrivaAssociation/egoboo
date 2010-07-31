@@ -16,6 +16,7 @@ BuildRequires:	SDL_ttf-devel
 BuildRequires:	SDL_image-devel
 BuildRequires:	mesaglu-devel
 BuildRequires:	imagemagick
+BuildRequires:	physfs-devel
 Requires:	egoboo-data = %{epoch}:%{version}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
