@@ -7,9 +7,11 @@ Epoch:		1
 License:	GPLv3+
 Group:		Games/Adventure
 URL:		http://egoboo.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/egoboo/%{oname} %{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/egoboo/%{name}-%{version}.tar.bz2
 Patch1:		egoboo-2.6.3b-fix-startup-script.patch
 Patch2:		egoboo-2.7.7-fix-str-fmt.patch
+Patch3:		egoboo-2.8.0-add-missing-source-to-make-target.patch
+Patch4:		egoboo-2.8.0-create-enet-lib-directory.patch
 BuildRequires:	SDL-devel
 BuildRequires:	SDL_mixer-devel
 BuildRequires:	SDL_ttf-devel
@@ -31,6 +33,8 @@ stand out in the gaming open-source community.
 %setup -q -n %{oname}\ %{version}
 # %patch1 -p0 -b .script
 # %patch2 -p1 -b .str-fmt
+%patch3 -p1 -b .missing_src~
+%patch4 -p1 -b .enet_lib~
 
 %build
 make all 
