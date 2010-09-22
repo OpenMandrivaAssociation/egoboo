@@ -37,7 +37,8 @@ stand out in the gaming open-source community.
 %patch4 -p1 -b .enet_lib~
 
 %build
-make all 
+%make -C enet OPT='-Wall %{optflags}'
+%make all OPT='-DPREFIX="%{_prefix}" -Wall %{optflags}'
 
 # convert res/egoboo.ico %{name}.png
 
