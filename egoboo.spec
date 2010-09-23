@@ -37,7 +37,7 @@ stand out in the gaming open-source community.
 # %patch2 -p1 -b .str-fmt
 %patch3 -p0 -b .missing_src~
 %patch4 -p0 -b .enet_lib~
-%patch5 -p0 -b .destdir~
+%patch5 -p1 -b .destdir~
 %patch6 -p1 -b .gl_ext~
 %patch7 -p1 -b .conf_dir~
 
@@ -74,9 +74,10 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %doc README.Linux game/change.log
-%{_gamesbindir}/%{name}*
-%dir %{_sysconfdir}/%{name}
-%config %{_sysconfdir}/%{name}/controls.txt
-%config %{_sysconfdir}/%{name}/setup.txt
+%{_gamesbindir}/%{name}
+%dir %{_gamesdatadir}/%{name}/players
+%{_gamesdatadir}/%{name}/players/*
+%{_gamesdatadir}/%{name}/controls.txt
+%{_gamesdatadir}/%{name}/setup.txt
 %{_datadir}/applications/egoboo.desktop
 %{_iconsdir}/hicolor/*/apps/%{name}.png
