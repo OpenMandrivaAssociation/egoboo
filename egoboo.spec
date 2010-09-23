@@ -1,4 +1,3 @@
-%define oname	Egoboo
 Summary:	3D dungeon crawling game
 Name:		egoboo
 Version:	2.8.0
@@ -7,11 +6,14 @@ Epoch:		1
 License:	GPLv3+
 Group:		Games/Adventure
 URL:		http://egoboo.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/egoboo/%{name}-%{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/egoboo/%{name}-%{version}.tar.xz
 Patch1:		egoboo-2.6.3b-fix-startup-script.patch
 Patch2:		egoboo-2.7.7-fix-str-fmt.patch
 Patch3:		egoboo-2.8.0-add-missing-source-to-make-target.patch
 Patch4:		egoboo-2.8.0-create-enet-lib-directory.patch
+Patch5:		egoboo-2.8.0-add-destdir.patch
+Patch6:		egoboo-2.8.0-disable-unsupported-gl-extension.patch
+Patch7:		egoboo-2.8.0-use-datadir-for-config.patch
 BuildRequires:	SDL-devel
 BuildRequires:	SDL_mixer-devel
 BuildRequires:	SDL_ttf-devel
@@ -30,25 +32,22 @@ detailed models(using Quake2 modeling tools) make this game
 stand out in the gaming open-source community.
 
 %prep
-%setup -q -n %{oname}\ %{version}
+%setup -q
 # %patch1 -p0 -b .script
 # %patch2 -p1 -b .str-fmt
-%patch3 -p1 -b .missing_src~
-%patch4 -p1 -b .enet_lib~
+%patch3 -p0 -b .missing_src~
+%patch4 -p0 -b .enet_lib~
+%patch5 -p0 -b .destdir~
+%patch6 -p1 -b .gl_ext~
+%patch7 -p1 -b .conf_dir~
 
 %build
 %make -C enet OPT='-Wall %{optflags}'
-%make all OPT='-DPREFIX="%{_prefix}" -Wall %{optflags}'
-
-# convert res/egoboo.ico %{name}.png
+%make all OPT='-DPREFIX=\"%{_prefix}\" -D_NIX_PREFIX -Wall %{optflags}'
 
 %install
 rm -rf %{buildroot}
-install -d %{buildroot}%{_gamesbindir}
-pushd game
-install -m 755 -D %{name} %{buildroot}%{_gamesbindir}/%{name}.real
-install -m 755 -D %{name}.sh %{buildroot}%{_gamesbindir}/%{name}
-popd
+%makeinstall_std
 
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/%{name}.desktop <<EOF
@@ -64,19 +63,10 @@ Categories=Game;RolePlaying;AdventureGame;
 EOF
 
 mkdir -p %{buildroot}/%{_iconsdir}/hicolor/{16x16,32x32,48x48}/apps
-convert -resize 16x16 %{name}-0.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png
-convert -resize 32x32 %{name}-0.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png
-convert -resize 48x48 %{name}-0.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%{name}.png
-
-%if %mdkversion < 200900
-%post
-%{update_menus}
-%endif
-
-%if %mdkversion < 200900
-%postun
-%{clean_menus}
-%endif
+convert egoboo1.ico egoboo.png
+convert -resize 16x16 egoboo-1.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png
+convert -resize 32x32 egoboo-1.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png
+convert -resize 48x48 egoboo-1.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%{name}.png
 
 %clean
 rm -rf %{buildroot}
@@ -85,5 +75,8 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc README.Linux game/change.log
 %{_gamesbindir}/%{name}*
+%dir %{_sysconfdir}/%{name}
+%config %{_sysconfdir}/%{name}/controls.txt
+%config %{_sysconfdir}/%{name}/setup.txt
 %{_datadir}/applications/egoboo.desktop
 %{_iconsdir}/hicolor/*/apps/%{name}.png
