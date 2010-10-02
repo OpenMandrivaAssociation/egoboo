@@ -1,14 +1,12 @@
 Summary:	3D dungeon crawling game
 Name:		egoboo
 Version:	2.8.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 Epoch:		1
 License:	GPLv3+
 Group:		Games/Adventure
 URL:		http://egoboo.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/egoboo/%{name}-%{version}.tar.xz
-Patch1:		egoboo-2.6.3b-fix-startup-script.patch
-Patch2:		egoboo-2.7.7-fix-str-fmt.patch
 Patch3:		egoboo-2.8.0-add-missing-source-to-make-target.patch
 Patch4:		egoboo-2.8.0-create-enet-lib-directory.patch
 Patch5:		egoboo-2.8.0-add-destdir.patch
@@ -34,8 +32,6 @@ stand out in the gaming open-source community.
 
 %prep
 %setup -q
-# %patch1 -p0 -b .script
-# %patch2 -p1 -b .str-fmt
 %patch3 -p0 -b .missing_src~
 %patch4 -p0 -b .enet_lib~
 %patch5 -p1 -b .destdir~
