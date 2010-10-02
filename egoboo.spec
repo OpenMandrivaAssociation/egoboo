@@ -14,6 +14,7 @@ Patch4:		egoboo-2.8.0-create-enet-lib-directory.patch
 Patch5:		egoboo-2.8.0-add-destdir.patch
 Patch6:		egoboo-2.8.0-disable-unsupported-gl-extension.patch
 Patch7:		egoboo-2.8.0-use-datadir-for-config.patch
+Patch8:		egoboo-2.8.0-fix-infinite-loop.patch
 BuildRequires:	SDL-devel
 BuildRequires:	SDL_mixer-devel
 BuildRequires:	SDL_ttf-devel
@@ -40,6 +41,7 @@ stand out in the gaming open-source community.
 %patch5 -p1 -b .destdir~
 %patch6 -p1 -b .gl_ext~
 %patch7 -p1 -b .conf_dir~
+%patch8 -p1 -b .infinite_loop~
 
 %build
 %make -C enet OPT='-Wall %{optflags}'
