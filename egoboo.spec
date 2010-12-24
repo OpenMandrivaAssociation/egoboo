@@ -1,7 +1,7 @@
 Summary:	3D dungeon crawling game
 Name:		egoboo
-Version:	2.8.0
-Release:	%mkrel 2
+Version:	2.8.1
+Release:	%mkrel 1
 Epoch:		1
 License:	GPLv3+
 Group:		Games/Adventure
@@ -32,12 +32,12 @@ stand out in the gaming open-source community.
 
 %prep
 %setup -q
-%patch3 -p0 -b .missing_src~
-%patch4 -p0 -b .enet_lib~
-%patch5 -p1 -b .destdir~
-%patch6 -p1 -b .gl_ext~
-%patch7 -p1 -b .conf_dir~
-%patch8 -p1 -b .infinite_loop~
+# %patch3 -p0 -b .missing_src~
+# %patch4 -p0 -b .enet_lib~
+# %patch5 -p1 -b .destdir~
+# %patch6 -p1 -b .gl_ext~
+# %patch7 -p1 -b .conf_dir~
+# %patch8 -p1 -b .infinite_loop~
 
 %build
 %make -C enet OPT='-Wall %{optflags}'
