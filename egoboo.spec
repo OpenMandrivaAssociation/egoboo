@@ -1,3 +1,4 @@
+%define _disable_ld_no_undefined 1
 Summary:	3D dungeon crawling game
 Name:		egoboo
 Version:	2.8.1
