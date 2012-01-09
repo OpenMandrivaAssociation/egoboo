@@ -40,7 +40,7 @@ stand out in the gaming open-source community.
 # %patch8 -p1 -b .infinite_loop~
 
 %build
-%make -C enet OPT='-Wall %{optflags}'
+pushd src
 %make all OPT='-DPREFIX=\"%{_prefix}\" -D_NIX_PREFIX -Wall %{optflags}'
 
 %install
