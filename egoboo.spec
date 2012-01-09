@@ -41,7 +41,7 @@ stand out in the gaming open-source community.
 
 %build
 pushd src
-%make all OPT='-DPREFIX=\"%{_prefix}\" -D_NIX_PREFIX -Wall %{optflags} LDFLAGS = -lm'
+%make all LIBS="-lm" OPT='-DPREFIX=\"%{_prefix}\" -D_NIX_PREFIX -Wall %{optflags}'
 
 %install
 rm -rf %{buildroot}
