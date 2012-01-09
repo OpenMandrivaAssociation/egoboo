@@ -1,4 +1,3 @@
-%define _disable_ld_no_undefined 1
 Summary:	3D dungeon crawling game
 Name:		egoboo
 Version:	2.8.1
@@ -14,6 +13,7 @@ Patch5:		egoboo-2.8.0-add-destdir.patch
 Patch6:		egoboo-2.8.0-disable-unsupported-gl-extension.patch
 Patch7:		egoboo-2.8.0-use-datadir-for-config.patch
 Patch8:		egoboo-2.8.0-fix-infinite-loop.patch
+Patch9:		egoboo-2.8.1-link-against-libm.patch
 BuildRequires:	SDL-devel
 BuildRequires:	SDL_mixer-devel
 BuildRequires:	SDL_ttf-devel
@@ -39,6 +39,7 @@ stand out in the gaming open-source community.
 # %patch6 -p1 -b .gl_ext~
 # %patch7 -p1 -b .conf_dir~
 # %patch8 -p1 -b .infinite_loop~
+%patch9 -p1 -b .libm~
 
 %build
 pushd src
