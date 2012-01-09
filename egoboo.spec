@@ -1,7 +1,7 @@
 Summary:	3D dungeon crawling game
 Name:		egoboo
 Version:	2.8.1
-Release:	%mkrel 1
+Release:	1
 Epoch:		1
 License:	GPLv3+
 Group:		Games/Adventure
@@ -22,7 +22,6 @@ BuildRequires:	mesaglu-devel
 BuildRequires:	imagemagick
 BuildRequires:	physfs-devel
 Requires:	egoboo-data = %{epoch}:%{version}
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Egoboo is an open source project, using OpenGL and SDL(Simple
@@ -46,7 +45,6 @@ pushd src
 %make all LIBS="-lm" OPT='-DPREFIX=\"%{_prefix}\" -D_NIX_PREFIX -Wall %{optflags}'
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
 mkdir -p %{buildroot}%{_datadir}/applications
@@ -68,11 +66,7 @@ convert -resize 16x16 egoboo-1.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%
 convert -resize 32x32 egoboo-1.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png
 convert -resize 48x48 egoboo-1.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%{name}.png
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc README.Linux game/change.log
 %{_gamesbindir}/%{name}
 %dir %{_gamesdatadir}/%{name}/players
