@@ -46,7 +46,7 @@ pushd src
 popd
 %install
 pushd src/game
-%makeinstall_std PREFIX=%{buildroot}
+%makeinstall_std PREFIX=%{buildroot}/%{_prefix}/
 popd
 
 mkdir -p %{buildroot}%{_datadir}/applications
