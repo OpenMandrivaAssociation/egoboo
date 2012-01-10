@@ -45,7 +45,7 @@ pushd src
 %make all LIBS="-lm" OPT='-DPREFIX=\"%{_prefix}\" -D_NIX_PREFIX -Wall %{optflags}'
 popd
 %install
-pushd src/game
+pushd src/
 %makeinstall_std PREFIX=%{buildroot}/%{_prefix}/
 popd
 
