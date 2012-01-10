@@ -45,7 +45,9 @@ pushd src
 %make all LIBS="-lm" OPT='-DPREFIX=\"%{_prefix}\" -D_NIX_PREFIX -Wall %{optflags}'
 popd
 %install
+pushd src
 %makeinstall_std
+popd
 
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/%{name}.desktop <<EOF
