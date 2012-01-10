@@ -46,7 +46,7 @@ pushd src
 popd
 %install
 pushd src
-%makeinstall_std
+%makeinstall_std PREFIX=%{buildroot}
 popd
 
 mkdir -p %{buildroot}%{_datadir}/applications
