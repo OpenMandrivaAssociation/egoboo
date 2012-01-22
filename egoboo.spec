@@ -17,12 +17,8 @@ URL:		http://egoboo.sourceforge.net/
 #tar Jcvf %{name}-%{version}.tar.xz %{name}-%{version}/
 #tar Jcvf %{name}-data-%{version}.tar.xz %{name}-data-%{version}/
 Source0:	%{name}-%{version}.tar.xz
-Patch3:		egoboo-2.8.0-add-missing-source-to-make-target.patch
-Patch4:		egoboo-2.8.0-create-enet-lib-directory.patch
 Patch5:		egoboo-2.8.1-add-destdir.patch
-Patch6:		egoboo-2.8.0-disable-unsupported-gl-extension.patch
 Patch7:		egoboo-2.8.1-use-datadir-for-config.patch
-Patch8:		egoboo-2.8.0-fix-infinite-loop.patch
 Patch9:		egoboo-2.8.1-link-against-libm.patch
 BuildRequires:	SDL-devel
 BuildRequires:	SDL_mixer-devel
@@ -43,12 +39,8 @@ stand out in the gaming open-source community.
 
 %prep
 %setup -q
-# %patch3 -p0 -b .missing_src~
-# %patch4 -p0 -b .enet_lib~
 %patch5 -p1 -b .destdir~
-# %patch6 -p1 -b .gl_ext~
 %patch7 -p1 -b .conf_dir~
-# %patch8 -p1 -b .infinite_loop~
 %patch9 -p1 -b .libm~
 for f in `find -name \*.c -o -name \*.h -o -name README\* -o -name change.log`; do
 	dos2unix $f
