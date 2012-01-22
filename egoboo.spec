@@ -49,6 +49,10 @@ stand out in the gaming open-source community.
 # %patch7 -p1 -b .conf_dir~
 # %patch8 -p1 -b .infinite_loop~
 %patch9 -p1 -b .libm~
+for f in `find -name \*.c -o -name \*.h -o -name README\* -o -name change.log`; do
+	dos2unix $f
+	chmod 644 $f
+done
 
 %build
 %make -LIBS="-lm" OPT='-DPREFIX=\"%{_prefix}\" -D_NIX_PREFIX -Wall %{optflags}'
