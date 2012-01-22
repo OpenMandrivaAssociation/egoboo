@@ -31,6 +31,7 @@ BuildRequires:	SDL_image-devel
 BuildRequires:	mesaglu-devel
 BuildRequires:	imagemagick
 BuildRequires:	physfs-devel
+BuildRequires:	dos2unix
 Requires:	egoboo-data = %{epoch}:%{version}
 
 %description
