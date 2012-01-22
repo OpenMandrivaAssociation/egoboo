@@ -6,10 +6,20 @@ Epoch:		1
 License:	GPLv3+
 Group:		Games/Adventure
 URL:		http://egoboo.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/egoboo/%{name}-%{version}.tar.xz
+#Source0:	http://downloads.sourceforge.net/egoboo/%{name}-%{version}.tar.gz
+#Since upstream gives both source and data in one tarball, we split it between here and egoboo-data package :
+#wget http://downloads.sourceforge.net/egoboo/%{name}-%{version}.tar.gz
+#tar xvf %{name}-%{version}.tar.gz
+#mkdir %{name}-data-%{version}
+#cd %{name}-%{version}
+#mv basicdat/ doc/ modules/ egoboo*ico ../%{name}-data-%{version}/
+#cd ..
+#tar Jcvf %{name}-%{version}.tar.xz %{name}-%{version}/
+#tar Jcvf %{name}-data-%{version}.tar.xz %{name}-data-%{version}/
+Source0:	%{name}-%{version}.tar.xz
 Patch3:		egoboo-2.8.0-add-missing-source-to-make-target.patch
 Patch4:		egoboo-2.8.0-create-enet-lib-directory.patch
-Patch5:		egoboo-2.8.0-add-destdir.patch
+Patch5:		egoboo-2.8.1-add-destdir.patch
 Patch6:		egoboo-2.8.0-disable-unsupported-gl-extension.patch
 Patch7:		egoboo-2.8.0-use-datadir-for-config.patch
 Patch8:		egoboo-2.8.0-fix-infinite-loop.patch
@@ -34,20 +44,17 @@ stand out in the gaming open-source community.
 %setup -q
 # %patch3 -p0 -b .missing_src~
 # %patch4 -p0 -b .enet_lib~
-# %patch5 -p1 -b .destdir~
+%patch5 -p1 -b .destdir~
 # %patch6 -p1 -b .gl_ext~
 # %patch7 -p1 -b .conf_dir~
 # %patch8 -p1 -b .infinite_loop~
 %patch9 -p1 -b .libm~
 
 %build
-pushd src
-%make all LIBS="-lm" OPT='-DPREFIX=\"%{_prefix}\" -D_NIX_PREFIX -Wall %{optflags}'
-popd
+%make -LIBS="-lm" OPT='-DPREFIX=\"%{_prefix}\" -D_NIX_PREFIX -Wall %{optflags}'
+
 %install
-pushd src/
-%makeinstall_std PREFIX=%{buildroot}/%{_prefix}/
-popd
+%makeinstall_std
 
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/%{name}.desktop <<EOF
@@ -71,8 +78,6 @@ convert -resize 48x48 egoboo-1.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%
 %files
 %doc README.Linux game/change.log
 %{_gamesbindir}/%{name}
-%dir %{_gamesdatadir}/%{name}/players
-%{_gamesdatadir}/%{name}/players/*
 %{_gamesdatadir}/%{name}/controls.txt
 %{_gamesdatadir}/%{name}/setup.txt
 %{_datadir}/applications/egoboo.desktop
