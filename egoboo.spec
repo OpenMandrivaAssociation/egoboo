@@ -55,7 +55,7 @@ for f in `find -name \*.c -o -name \*.h -o -name README\* -o -name change.log`; 
 done
 
 %build
-%make -LIBS="-lm" OPT='-DPREFIX=\"%{_prefix}\" -D_NIX_PREFIX -Wall %{optflags}'
+%make OPT='-DPREFIX=\"%{_prefix}\" -D_NIX_PREFIX -Wall %{optflags}'
 
 %install
 %makeinstall_std
