@@ -1,0 +1,42 @@
+--- egoboo-2.8.1/Makefile	2010-11-30 19:05:29.000000000 +0100
++++ egoboo-2.8.1/Makefile.destdir	2012-01-20 13:01:02.375011329 +0100
+@@ -10,7 +10,7 @@ ifndef ($(PREFIX),"")
+ endif
+ 
+ 
+-PROJ_NAME := egoboo-2.x
++PROJ_NAME := egoboo
+ 
+ .PHONY: all clean
+ 
+@@ -49,23 +49,17 @@ install: egoboo
+ 	#
+ 
+ #	copy the binary to the games folder
+-	mkdir -p ${PREFIX}/games
+-	install -m 755 ./game/${PROJ_NAME} ${PREFIX}/games
+-
+-#	copy the data to the games folder
+-	mkdir -p ${PREFIX}/share/games/${PROJ_NAME}
+-	cp -rdf ./basicdat ${PREFIX}/share/games/${PROJ_NAME}
+-	cp -rdf ./modules ${PREFIX}/share/games/${PROJ_NAME}
++	mkdir -p ${DESTDIR}${PREFIX}/games
++	install -m 755 ./game/${PROJ_NAME} ${DESTDIR}${PREFIX}/games
+ 
+ #	copy the players to the user's data folder
+-	mkdir -p ${HOME}/.${PROJ_NAME}
+-	mkdir -p ${HOME}/.${PROJ_NAME}/players
++	mkdir -p ${DESTDIR}${PREFIX}/share/games/${PROJ_NAME}
++	#cp -rdf ./players ${DESTDIR}${PREFIX}/share/games/${PROJ_NAME}
+ 
+ #	copy the basic configuration files to the config directory
+-	mkdir -p ${PREFIX}/etc/${PROJ_NAME}
+-	cp -rdf setup.txt ${PREFIX}/etc/${PROJ_NAME}/setup.txt
+-	cp -rdf controls.txt ${PREFIX}/etc/${PROJ_NAME}/controls.txt
+-
++	install -m644 setup.txt -D ${DESTDIR}${PREFIX}/share/games/${PROJ_NAME}/setup.txt
++	install -m644 controls.txt -D ${DESTDIR}${PREFIX}/share/games/${PROJ_NAME}/controls.txt
++ 
+ 	#####################################
+ 	# Egoboo installation is finished
+ 	#####################################
