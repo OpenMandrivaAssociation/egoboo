@@ -1,7 +1,7 @@
 Summary:	3D dungeon crawling game
 Name:		egoboo
 Version:	2.8.1
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPLv3+
 Group:		Games/Adventure
