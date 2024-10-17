@@ -5,7 +5,7 @@ Release:	2
 Epoch:		1
 License:	GPLv3+
 Group:		Games/Adventure
-URL:		http://egoboo.sourceforge.net/
+URL:		https://egoboo.sourceforge.net/
 #Source0:	http://downloads.sourceforge.net/egoboo/%{name}-%{version}.tar.gz
 #Since upstream gives both source and data in one tarball, we split it between here and egoboo-data package :
 #wget http://downloads.sourceforge.net/egoboo/%{name}-%{version}.tar.gz
